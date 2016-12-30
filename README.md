@@ -17,7 +17,20 @@ Then:
 % sudo systemctl daemon-reload
 ```
 
-This will restart your PMS, this will restart plex *and* create a loop fs in memory at /dev/shm/plex
+Add this to your sudoers (using visudo):
+```
+plex ALL=(ALL) NOPASSWD: /usr/local/bin/plex_temp_filesystem.sh
+```
+Make sure that the first entry in the line, in this case "plex" matches the user that plex runs as.
+
+
+Finally:
+```
+sudo systemctl restart plexmediaserver
+```
+
+
+This will restart plex *and* create a loop fs in memory at /dev/shm/plex
 ```
 % df -h /dev/shm/plex
 Filesystem      Size  Used Avail Use% Mounted on
